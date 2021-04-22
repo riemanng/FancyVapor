@@ -5,10 +5,21 @@ func routes(_ app: Application) throws {
     app.get { req in
         return "It works!"
     }
-
-    app.get("hello") { req -> String in
-        return "Hello, world!"
+    
+    app.crud("users", model: User.self)
+    
+    app.crud("users", model: User.self) { routes, parentController in
+        routes.crud("appls", children: Appliances.self, on: parentController, via: \.$appliancesDevices)
     }
-
-    try app.register(collection: TodoController())
+    app.crud("users", model: User.self) { routes, parentController in
+        routes.crud("sft", children: Safety.self, on: parentController, via: \.$safetyDevices)
+    }
+    
+    app.crud("users", model: User.self) { routes, parentController in
+        routes.crud("sens", children: Sensors.self, on: parentController, via: \.$sensorsDevices)
+    }
+    
+    app.crud("users", model: User.self) { routes, parentController in
+        routes.crud("va", children: VoiceAssistant.self, on: parentController, via: \.$assistant)
+    }
 }
