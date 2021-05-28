@@ -10,9 +10,12 @@ final class Sensors: Model, Content, Device {
     @Field(key: "name")
     var name: String
     
-    @Field(key: "state")
-    var state: String
+    @Field(key: "isActive")
+    var isActive: Bool
     
+    @Field(key: "room")
+    var room: String
+
     @Parent(key: "user_id")
     var user: User
     
@@ -21,14 +24,16 @@ final class Sensors: Model, Content, Device {
     
     init() {}
     
-    init(id: Int? = nil,
+    init(id: Sensors.IDValue? = nil,
          name: String,
-         state: String,
+         isActive: Bool = false,
+	 room: String,
          dateOfCheck: Date? = nil,
          userId: User.IDValue?) {
         self.id = id
+	self.room = room
         self.name = name
-        self.state = state
+        self.isActive = isActive
         self.dateOfCheck = dateOfCheck
         if let user = userId {
             self.$user.id = user

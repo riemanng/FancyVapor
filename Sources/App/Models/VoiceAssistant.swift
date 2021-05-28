@@ -10,9 +10,12 @@ final class VoiceAssistant: Model, Content, Device {
     @Field(key: "name")
     var name: String
     
-    @Field(key: "state")
-    var state: String
+    @Field(key: "isActive")
+    var isActive: Bool
     
+    @Field(key: "room")
+    var room: String
+
     @Field(key: "message")
     var message: String
 
@@ -21,15 +24,16 @@ final class VoiceAssistant: Model, Content, Device {
     
     init() {}
     
-    init(id: Int? = nil,
+    init(id: VoiceAssistant.IDValue? = nil,
          name: String,
-         state: String,
-         timer: String,
+         isActive: Bool = false,
          message: String,
+	 room: String,
          userId: User.IDValue?) {
         self.id = id
+	self.room = room
         self.name = name
-        self.state = state
+        self.isActive = isActive
         self.message = message
         if let user = userId {
             self.$user.id = user

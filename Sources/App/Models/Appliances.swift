@@ -13,22 +13,27 @@ final class Appliances: Model, Content, Device {
     @Field(key: "name")
     var name: String
     
-    @Field(key: "state")
-    var state: String
+    @Field(key: "isActive")
+    var isActive: Bool
+    
+    @Field(key: "room")
+    var room: String
     
     @Timestamp(key: "dateOfCheck", on: .update)
     var dateOfCheck: Date?
     
     init() {}
     
-    init(id: Int? = nil,
+    init(id: Appliances.IDValue? = nil,
          name: String,
-         state: String,
+         isActive: Bool = false,
+         room: String,
          dateOfCheck: Date? = nil,
          userId: User.IDValue?) {
         self.id = id
+        self.room = room
         self.name = name
-        self.state = state
+        self.isActive = isActive
         self.dateOfCheck = dateOfCheck
         if let user = userId {
             self.$user.id = user

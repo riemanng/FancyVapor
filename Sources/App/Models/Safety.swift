@@ -10,21 +10,26 @@ final class Safety: Model, Content, Device {
     @Field(key: "name")
     var name: String
     
-    @Field(key: "state")
-    var state: String
+    @Field(key: "isActive")
+    var isActive: Bool
     
+    @Field(key: "room")
+    var room: String
+
     @Parent(key: "user_id")
     var user: User
     
     init() {}
     
-    init(id: Int? = nil,
+    init(id: Safety.IDValue? = nil,
          name: String,
-         state: String,
+	 room: String,
+         isActive: Bool = false,
          userId: User.IDValue?) {
         self.id = id
+	self.room = room
         self.name = name
-        self.state = state
+        self.isActive = isActive
         if let user = userId {
             self.$user.id = user
         }

@@ -7,9 +7,8 @@ struct CreateUser: Migration {
         return database.schema("users")
             .field("id", .int, .identifier(auto: true))
             .field("name", .string, .required)
-            .field("phoneNumber", .string)
-            .field("address", .string)
-            .field("email", .string)
+            .field("email", .string, .required)
+	    .unique(on: "name")
             .create()
     }
 
